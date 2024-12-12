@@ -8,10 +8,19 @@ urlInput = 'https://www.amazon.com/s?k=ass+sex+toy&crid=IAP54QZNM2DH&sprefix=ass
 # simulate a user agent
 ua = UserAgent()
 randomUA = ua.random
-header = {'user-agent' : randomUA}
+header = {
+    'user-agent' : str(randomUA)
+    }
+print('Header: ' + header['user-agent'])
 
 # get the page using the URL and a header that contains a fake user-agent
 page = requests.get(urlInput, headers=header)
 htmlContent = page.text
 
-print(htmlContent)
+# check for success, otherwise print error code
+if page.status_code == 200:
+    print(htmlContent)
+else:
+    print('Status code: ' + str(page.status_code))
+
+# print(htmlContent)
